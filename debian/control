@@ -1,0 +1,14 @@
+Source: kgp-pywrap
+Priority: extra
+Maintainer: PA Nilsson <pa@openproducts.se>
+Build-Depends: debhelper (>= 9), python3
+Standards-Version: 3.9.4
+X-Python3-Version: >= 3.2
+Section: python
+
+Package: kgp-pywrap
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}, libopi1
+Description: Kinguard platform helper functions
+ This package contains wrappers to Kinguard various c++ libs
