@@ -38,33 +38,18 @@ def NetworkDevice():
 	return func()
 
 def isArmada():
-	func = lib.SysTypeText
-	func.restype = c_char_p
-	return func()
 	return lib.isArmada(None) > 0
 
 def isOpi():
-	func = lib.SysTypeText
-	func.restype = c_char_p
-	return func()
 	return lib.isOpi(None) > 0
 
 def isXu4():
-	func = lib.SysTypeText
-	func.restype = c_char_p
-	return func()
 	return lib.isXu4(None) > 0
 
 def isOlimexA20():
-	func = lib.SysTypeText
-	func.restype = c_char_p
-	return func()
 	return lib.isOlimexA20(None) > 0
 
 def isPC():
-	func = lib.SysTypeText
-	func.restype = c_char_p
-	return func()
 	return lib.isPC(None) > 0
 
 # For testing only
