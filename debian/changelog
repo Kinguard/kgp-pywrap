@@ -1,3 +1,15 @@
+kgp-pywrap (1.2) vili; urgency=medium
+
+  * Addes tests to get system type 
+
+ -- PA Nilsson <pa@openproducts.se>  Mon, 04 Sep 2017 09:24:08 +0200
+
+kgp-pywrap (1.1) vili; urgency=medium
+
+  * Added dependancies 
+
+ -- PA Nilsson <pa@openproducts.se>  Wed, 16 Aug 2017 14:55:18 +0200
+
 kgp-pywrap (1.0) vili; urgency=medium
 
   * Initial release. 

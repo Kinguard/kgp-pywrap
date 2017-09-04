@@ -31,12 +31,11 @@ def StorageDevicePartition():
 	func.restype = c_char_p
 	return func()
 
-'''
+
 def NetworkDevice():
 	func = lib.NetworkDevice
 	func.restype = c_char_p
 	return func()
-
 
 def isArmada():
 	func = lib.SysTypeText
@@ -67,7 +66,7 @@ def isPC():
 	func.restype = c_char_p
 	return func()
 	return lib.isPC(None) > 0
-'''
+
 # For testing only
 if __name__ == '__main__':
 	print( SysTypeText() );
@@ -75,13 +74,14 @@ if __name__ == '__main__':
 	print( StorageDevice() );
 	print( StorageDeviceBlock() );
 	print( StorageDevicePartition() );
+	print( NetworkDevice() );
 	
-'''
-    print( isArmada() );
-    print( isOpi() );
-    print( isXu4() );
-    print( isOlimexA20() );
-    print( isPC() );
-'''   
+
+	print( isArmada() );
+	print( isOpi() );
+	print( isXu4() );
+	print( isOlimexA20() );
+	print( isPC() );
+   
    
 
