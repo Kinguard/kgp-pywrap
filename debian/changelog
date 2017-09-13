@@ -1,3 +1,9 @@
+kgp-pywrap (1.7) vili; urgency=medium
+
+  * Updated package deps. 
+
+ -- PA Nilsson <pa@openproducts.se>  Wed, 13 Sep 2017 08:30:46 +0200
+
 kgp-pywrap (1.6) vili; urgency=medium
 
   * Updated to pass buffert to c++ backend. 
