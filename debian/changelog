@@ -1,3 +1,21 @@
+kgp-pywrap (1.10) vili; urgency=medium
+
+  * Propagate exceptions. 
+
+ -- PA Nilsson <pa@openproducts.se>  Wed, 13 Sep 2017 12:14:14 +0200
+
+kgp-pywrap (1.9) vili; urgency=medium
+
+  * Add function to read config files. 
+
+ -- PA Nilsson <pa@openproducts.se>  Wed, 13 Sep 2017 11:39:04 +0200
+
+kgp-pywrap (1.8) vili; urgency=medium
+
+  * .so -> .so.1 in library name. 
+
+ -- PA Nilsson <pa@openproducts.se>  Wed, 13 Sep 2017 08:53:18 +0200
+
 kgp-pywrap (1.7) vili; urgency=medium
 
   * Updated package deps. 

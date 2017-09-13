@@ -3,7 +3,7 @@
 __version__ = "1.0"
 
 from ctypes import *
-lib = CDLL("libopi_wrapper.so")
+lib = CDLL("libopi_wrapper.so.1")
 
 def SysTypeText():
 	func = lib.SysTypeText
