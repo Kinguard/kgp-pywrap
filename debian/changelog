@@ -1,3 +1,9 @@
+kgp-pywrap (1.11) vili; urgency=medium
+
+  * Added support for BackupRootPath in sysinfo 
+
+ -- PA Nilsson <pa@openproducts.se>  Fri, 27 Oct 2017 11:08:59 +0200
+
 kgp-pywrap (1.10) vili; urgency=medium
 
   * Propagate exceptions. 

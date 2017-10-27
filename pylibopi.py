@@ -84,6 +84,19 @@ def NetworkDevice():
 		raise ValueError("Failed to get SystemType from server, status: %s" % status)
 		return false
 
+def BackupRootPath():
+	func = lib.BackupRootPath
+	func.argtypes = [c_char_p]
+	func.restype = c_int
+	length=50 
+	buf = cast(create_string_buffer(length),c_char_p)
+	status = func(buf)
+	if ( status == 1 ):
+		return buf.value.decode("utf-8")
+	else:
+		raise ValueError("Failed to get BackupRootPath from server, status: %s" % status)
+		return false
+
 def isArmada():
 	return lib.isArmada(None) > 0
 
