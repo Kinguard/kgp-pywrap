@@ -9,6 +9,6 @@ Section: python
 Package: kgp-pywrap
 Section: python
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, libopi1, libopi-wrapper1, python3-openssl
+Depends: ${misc:Depends}, ${python3:Depends}, libopi1, libopi-wrapper1 (>=1.9), python3-openssl
 Description: Kinguard platform helper functions
  This package contains wrappers to Kinguard various c++ libs

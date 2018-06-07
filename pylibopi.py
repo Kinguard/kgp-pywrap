@@ -9,7 +9,7 @@ def SysTypeText():
 	func = lib.SysTypeText
 	func.argtypes = [c_char_p]
 	func.restype = c_int
-	length=50 
+	length=1024 
 	buf = cast(create_string_buffer(length),c_char_p)
 	status = func(buf)
 	if ( status == 1 ):
@@ -22,7 +22,7 @@ def SerialNumber():
 	func = lib.SerialNumber
 	func.argtypes = [c_char_p]
 	func.restype = c_int
-	length=50 
+	length=1024 
 	buf = cast(create_string_buffer(length),c_char_p)
 	status = func(buf)
 	if ( status == 1 ):
@@ -48,7 +48,7 @@ def StorageDeviceBlock():
 	func = lib.StorageDeviceBlock
 	func.argtypes = [c_char_p]
 	func.restype = c_int
-	length=50 
+	length=1024 
 	buf = cast(create_string_buffer(length),c_char_p)
 	status = func(buf)
 	if ( status == 1 ):
@@ -61,7 +61,7 @@ def StorageDevicePartition():
 	func = lib.StorageDevicePartition
 	func.argtypes = [c_char_p]
 	func.restype = c_int
-	length=50 
+	length=1024 
 	buf = cast(create_string_buffer(length),c_char_p)
 	status = func(buf)
 	if ( status == 1 ):
@@ -75,7 +75,7 @@ def NetworkDevice():
 	func = lib.NetworkDevice
 	func.argtypes = [c_char_p]
 	func.restype = c_int
-	length=50 
+	length=1024 
 	buf = cast(create_string_buffer(length),c_char_p)
 	status = func(buf)
 	if ( status == 1 ):
@@ -88,7 +88,7 @@ def BackupRootPath():
 	func = lib.BackupRootPath
 	func.argtypes = [c_char_p]
 	func.restype = c_int
-	length=50 
+	length=1024 
 	buf = cast(create_string_buffer(length),c_char_p)
 	status = func(buf)
 	if ( status == 1 ):
@@ -112,13 +112,55 @@ def isOlimexA20():
 def isPC():
 	return lib.isPC(None) > 0
 
+def GetKeyAsString(scope,key):
+	py_scope = c_char_p(str.encode(scope))
+	py_key = c_char_p(str.encode(key))
+	func = lib.GetKeyAsString
+	func.argtypes = [c_char_p,c_char_p,c_char_p]
+	func.restype = c_int
+	length=1024
+	buf = cast(create_string_buffer(length),c_char_p)
+	status = func(py_scope,py_key,buf)
+	if ( status == 1 ):
+		return buf.value.decode("utf-8")
+	else:
+		raise ValueError("Failed to get Config key '%s' (as string) from server." %  key)
+
+def GetKeyAsInt(scope,key):
+	py_scope = c_char_p(str.encode(scope))
+	py_key = c_char_p(str.encode(key))
+	result = c_int()
+	func = lib.GetKeyAsInt
+	func.argtypes = [c_char_p,c_char_p,c_void_p]
+	func.restype = c_bool
+
+	status = func(py_scope,py_key,byref(result))
+	if ( not status ):
+		raise ValueError("Failed to get Config key '%s' (as int) from server." %  key)
+	else:
+		return result.value
+		
+def GetKeyAsBool(scope,key):
+	py_scope = c_char_p(str.encode(scope))
+	py_key = c_char_p(str.encode(key))
+	result = c_int()
+	func = lib.GetKeyAsBool
+	func.argtypes = [c_char_p,c_char_p,c_void_p]
+	func.restype = c_bool
+	status = func(py_scope,py_key,byref(result))
+	if ( not status ):
+		raise ValueError("Failed to get Config key '%s' (as bool) from server." %  key)
+	else:
+		return result.value > 0
+
+
 
 def AuthLogin():
-	length=100  # token size is set to 50, have some room if we decide to change it.
+	length=1024  # token size is set to 50, have some room if we decide to change it.
 	token = cast(create_string_buffer(length),c_char_p)
 	func = lib.Login
 	func.argtypes = [c_char_p]
-	func.restype = c_int
+	func.restype = c_bool
 	status = func(token)
 	if (status != 200 ):
 		raise ValueError("Failed to get token from server, status: %s" % status)
@@ -129,6 +171,8 @@ def AuthLogin():
 
 # For testing only
 if __name__ == '__main__':
+	import sys
+
 	print( "SysTypeText: %s" % SysTypeText() );
 	print( "Serialnumber: %s" % SerialNumber() );
 	print( "StorageDevice: %s" % StorageDevice() );
@@ -147,7 +191,54 @@ if __name__ == '__main__':
 		token=AuthLogin()
 		print("Token %s\n" % token )
 	except ValueError as e:
-		print(e.args)
+		print("Exception from wrapper: %s" % e.args[0])
 		
+
+	try:
+		value=GetKeyAsString("webapps","theme")
+		print("Webapps Theme: '%s'\n" % value )
+	except ValueError as e:
+		print("Exception from wrapper: %s" % e.args[0])
+
+	try:
+		value=GetKeyAsInt("webapps","myint")
+		print("Webapps 'myint': '%s'\n" % value )
+	except ValueError as e:
+		print("Exception from wrapper: %s" % e.args[0])
 	   
+	try:
+		value=GetKeyAsBool("webapps","myfalse")
+		print("Webapps 'myfalse': '%s'\n" % value )
+	except ValueError as e:
+		print("Exception from wrapper: %s" % e.args[0])
+
+
+	## Test wrong type parameter
+	try:
+		value=GetKeyAsInt("webapps","theme")
+		print("Webapps Theme: '%s'\n" % value )
+	except ValueError as e:
+		print("Exception from wrapper: %s" % e.args[0])
+
+
+	## Test non-existant parameter
+	try:
+		value=GetKeyAsString("foo","bar")
+		print("Webapps Theme: '%s'\n" % value )
+	except ValueError as e:
+		print("Exception from wrapper: %s" % e.args[0])
+
+	## Test non-existant parameter
+	try:
+		value=GetKeyAsInt("foo","bar")
+		print("Webapps Theme: '%s'\n" % value )
+	except ValueError as e:
+		print("Exception from wrapper: %s" % e.args[0])
+
+	## Test non-existant parameter
+	try:
+		value=GetKeyAsBool("foo","bar")
+		print("Webapps Theme: '%s'\n" % value )
+	except ValueError as e:
+		print("Exception from wrapper: %s" % e.args[0])
 
