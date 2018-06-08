@@ -1,6 +1,7 @@
 kgp-pywrap (1.12) vili; urgency=medium
 
   * Added support for to read config parameters from sysconfig.json 
+  * Added support to update DNS pointer
 
  -- PA Nilsson <pa@openproducts.se>  Thu, 07 Jun 2018 15:23:39 +0200
 

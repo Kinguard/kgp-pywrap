@@ -160,32 +160,36 @@ def AuthLogin():
 	token = cast(create_string_buffer(length),c_char_p)
 	func = lib.Login
 	func.argtypes = [c_char_p]
-	func.restype = c_bool
+	func.restype = c_int
 	status = func(token)
 	if (status != 200 ):
 		raise ValueError("Failed to get token from server, status: %s" % status)
 		return false
 	else:
 		return token.value.decode("utf-8")
-	
+
+def UpdateDns():
+	return lib.UpdateDns(None) > 0
 
 # For testing only
 if __name__ == '__main__':
 	import sys
 
-	print( "SysTypeText: %s" % SysTypeText() );
-	print( "Serialnumber: %s" % SerialNumber() );
-	print( "StorageDevice: %s" % StorageDevice() );
-	print( "StorageDeviceBlock: %s" % StorageDeviceBlock() );
-	print( "StorageDevicePartition: %s" % StorageDevicePartition() );
-	print( "NetworkDevice: %s" % NetworkDevice() );
+	print( "SysTypeText: %s" % SysTypeText() )
+	print( "Serialnumber: %s" % SerialNumber() )
+	print( "StorageDevice: %s" % StorageDevice() )
+	print( "StorageDeviceBlock: %s" % StorageDeviceBlock() )
+	print( "StorageDevicePartition: %s" % StorageDevicePartition() )
+	print( "NetworkDevice: %s" % NetworkDevice() )
 	
 
-	print( "isArmada: %s" % isArmada() );
-	print( "isOpi: %s" % isOpi() );
-	print( "isXu4: %s" % isXu4() );
-	print( "isOlimexA20: %s" % isOlimexA20() );
-	print( "isPC: %s" % isPC() );
+	print( "isArmada: %s" % isArmada() )
+	print( "isOpi: %s" % isOpi() )
+	print( "isXu4: %s" % isXu4() )
+	print( "isOlimexA20: %s" % isOlimexA20() )
+	print( "isPC: %s" % isPC() )
+
+	print( "Update DNS: %s" % UpdateDns() )
    
 	try:
 		token=AuthLogin()
