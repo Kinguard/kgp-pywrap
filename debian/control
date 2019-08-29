@@ -1,7 +1,7 @@
 Source: kgp-pywrap
 Priority: extra
 Maintainer: PA Nilsson <pa@openproducts.se>
-Build-Depends: debhelper (>= 9), python3
+Build-Depends: debhelper (>= 11), dh-python, python3-all
 Standards-Version: 3.9.4
 X-Python3-Version: >= 3.2
 Section: python

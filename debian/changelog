@@ -1,3 +1,9 @@
+kgp-pywrap (1.13) vili; urgency=medium
+
+  * Buster adaptations
+
+ -- Tor Krill <tor@openproducts.se>  Thu, 29 Aug 2019 14:30:33 +0200
+
 kgp-pywrap (1.12) vili; urgency=medium
 
   * Added support for to read config parameters from sysconfig.json 
